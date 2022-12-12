@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using SolucionServidorA.Data;
-using SolucionServidorA.Entities;
-using SolucionServidorA.Models;
+using SolucionServidorB.Data;
+using SolucionServidorB.Entities;
+using SolucionServidorB.Models;
 
-namespace SolucionServidorA.Controllers
+namespace SolucionServidorB.Controllers
 {
     public class UsuariosController : Controller
     {
@@ -50,7 +50,7 @@ namespace SolucionServidorA.Controllers
                         break;
                     }
                 }
-                
+
                 _context.Add(usuario);
                 await _context.SaveChangesAsync();
                 return usuario;
@@ -94,7 +94,7 @@ namespace SolucionServidorA.Controllers
             return firma;
         }
 
-        
+
 
         [HttpPost]
         [Route("Integridad/")]
@@ -121,7 +121,7 @@ namespace SolucionServidorA.Controllers
             return "No Integro";
         }
 
-       
+
 
         [HttpPost]
         [Route("Autenticar/")]

@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Proyecto Sistemas Distribuidos";
+}
+
+<div class="card mt-2 m-auto" style="max-width: 767px">
+    <div class="card-header p-2">
+        <h1 class="fs-3 mb-0 text-center">Crear Usuario</h1>
+    </div>
+    <div>
+        <form asp-action="CrearUsuarioProxy" asp-controller="Firma" method="post">
+            <div class="container">
+                <div class="row p-3">
+                    <div class="col-9">
+                        <input required placeholder="Introduce el nombre del usuario" type="text" class="form-control form-control-sm" id="nombreUsuario" name="nombreUsuario"/>
+                    </div>
+                    <div class="col-3">
+                        <button type="submit" style="background-color: #244a76" class="border-0 w-100 btn btn-primary btn-sm">Crear</button>
+                    </div>
+                    @if (Context.Request.Query["message"].Count() > 0)
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-secondary alert-dismissible fade show p-3 mt-3" role="alert">
+                                <h4 class="fs-6 fw-bold text-uppercase">Nuevo usuario</h4>
+                                <p class="fs-6 m-0"><b>Nombre: </b>@Context.Request.Query["nombre"]</p>
+                                <p class="fs-6 m-0"><b>Clave: </b>@Context.Request.Query["clave"]</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<a class="btn-sm btn-secondary border-0 text-center text-decoration-none d-block m-auto mt-4 d-flex align-items-center justify-content-center" style="max-width: 100px" asp-action="Index" asp-controller="">
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
+    </svg>
+    <span class="m-1 d-block">
+        Volver
+    </span>
+</a>

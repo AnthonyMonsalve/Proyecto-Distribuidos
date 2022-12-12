@@ -42,9 +42,13 @@ namespace FrontendProyecto.Controllers
             return NoContent();
         }
 
-        public async Task<IActionResult> Autenticar()
+        public async Task<IActionResult> Autenticar(string nombre, string clave)
         {
-            EntradaAutenticar Autenticar = new();
+            EntradaAutenticar Autenticar = new()
+            {
+                Clave = clave,
+                NombreUsuario = nombre
+            };
             return View(Autenticar);
         }
 
@@ -67,9 +71,15 @@ namespace FrontendProyecto.Controllers
             return NoContent();
         }
 
-        public async Task<IActionResult> Firmar()
+        public async Task<IActionResult> Firmar(string nombre, string clave)
         {
-            return View();
+            EntradaFirmar Firmar = new()
+            {
+                Clave = clave,
+                NombreUsuario = nombre,
+                Mensaje = null
+            };
+            return View(Firmar);
         }
 
         [HttpPost]
@@ -84,7 +94,7 @@ namespace FrontendProyecto.Controllers
                 
                 if (respuesta.Firma != null)
                 {
-                    return RedirectToAction("Firmar", new { message = "Firma", clave = respuesta.Clave, firma = respuesta.Firma, firmaKey = respuesta.Id });
+                    return RedirectToAction("Firmar", new { message = "Firma", mensaje = entradaFirmar.Mensaje, claveFirma = respuesta.Clave, firma = respuesta.Firma, firmaKey = respuesta.Id });
                 }
                 else
                 {
@@ -98,9 +108,15 @@ namespace FrontendProyecto.Controllers
             return NoContent();
         }
 
-        public async Task<IActionResult> Integridad()
+        public async Task<IActionResult> Integridad(string Mensaje, string claveFirma, string firma)
         {
-            return View();
+            EntradaIntegridad integridad = new()
+            {
+                Mensaje = Mensaje,
+                Clave = claveFirma,
+                HashEncriptado = firma,
+            };
+            return View(integridad);
         }
 
         [HttpPost]

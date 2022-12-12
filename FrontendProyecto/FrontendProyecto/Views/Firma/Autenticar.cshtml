@@ -16,7 +16,7 @@
                             <label class="form-label fw-bold fs-6 mb-1">Usuario</label>
                         </div>
                         <div class="col-10">
-                            <input required placeholder="Introduce el nombre del usuario" type="text" class="form-control form-control-sm" id="NombreUsuario" name="NombreUsuario"/>
+                            <input required placeholder="Introduce el nombre del usuario" type="text" class="form-control form-control-sm" id="NombreUsuario" name="NombreUsuario" asp-for="NombreUsuario"/>
                         </div>
                     </div>
                     <div class="col-12 row">
@@ -24,7 +24,7 @@
                             <label class="form-label fw-bold fs-6 mb-1">Clave</label>
                         </div>
                         <div class="col-10">
-                            <input required placeholder="Introduce la clave del usuario" type="text" class="form-control form-control-sm" id="Clave" name="Clave" />
+                            <input required placeholder="Introduce la clave del usuario" type="text" class="form-control form-control-sm" id="Clave" name="Clave" asp-for="Clave"/>
                         </div>
                     </div>
                     <div class="col-12 row">
@@ -51,7 +51,7 @@
 </div>
  
 <a class="btn-sm btn-secondary border-0 text-center text-decoration-none d-block m-auto mt-4 d-flex align-items-center justify-content-center" style="max-width: 100px" asp-action="Index" asp-controller="">
-    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
         <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5ZM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5 5 5Z" />
     </svg>
     <span class="m-1 d-block">

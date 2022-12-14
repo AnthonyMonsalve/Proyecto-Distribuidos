@@ -34,6 +34,10 @@ namespace FrontendProyecto.Controllers
                 {
                     return RedirectToAction("CrearUsuario", new { message = "nuevo usuario", clave = respuesta.Clave, nombre = respuesta.Nombre, userKey = respuesta.Id });
                 }
+                else
+                {
+                    return RedirectToAction("CrearUsuario", new { message = "error", nombre = nombreUsuario });
+                }
             }
             catch (Exception ex)
             {

@@ -51,13 +51,11 @@ namespace FrontendProyecto.Servicios
             }
             catch (Exception ex)
             {
+                Console.WriteLine("Es posible que ya exista un usuario con el mismo nombre o ha ocurrido algun otro problema");
                 Console.WriteLine(ex);
             }
-
             Console.WriteLine(usuario.Nombre);
-
             return usuario;
-
         }
 
         public async Task<string> Autenticar(EntradaAutenticar entradaAutenticar)

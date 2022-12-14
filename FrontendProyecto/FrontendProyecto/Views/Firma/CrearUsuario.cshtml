@@ -16,7 +16,7 @@
                     <div class="col-3">
                         <button type="submit" style="background-color: #244a76" class="border-0 w-100 btn btn-primary btn-sm">Crear</button>
                     </div>
-                    @if (Context.Request.Query["message"].Count() > 0)
+                    @if (Context.Request.Query["message"].Count() > 0 && Context.Request.Query["message"] != "error")
                     {
                         <div class="col-12">
                             <div class="alert alert-secondary alert-dismissible fade show p-3 mt-3" role="alert">
@@ -42,6 +42,18 @@
                                         </span>
                                     </a>
                                 </div>
+                            </div>
+                        </div>
+                    }
+                    else if (Context.Request.Query["message"].Count() > 0)
+                    {
+                        <div class="col-12">
+                            <div class="alert alert-danger alert-dismissible fade show p-3 mt-3 text-center" role="alert">
+                                <h4 class="fs-6 fw-bold text-uppercase">Ocurrió un error al crear el usuario</h4>
+                                <p class="m-0">Es posible que ya exista un usuario con el mismo nombre <i>@Context.Request.Query["nombre"]</i> o ha ocurrido un problema de conexión</p>
+                                <p class="m-0 fw-bold">Por favor vuelva a intentarlo</p>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
                             </div>
                         </div>
                     }

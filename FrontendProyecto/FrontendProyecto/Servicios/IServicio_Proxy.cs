@@ -7,6 +7,7 @@ namespace FrontendProyecto.Servicios
         Task<UsuarioResultado> CrearUsuario(string nombre);
         Task<string> Autenticar(EntradaAutenticar entradaAutenticar);
         Task<string> Integridad(EntradaIntegridad entradaIntegridad);
-        Task<FirmaResultado> Firmar(EntradaFirmar entradaFirmar);  
+        Task<FirmaResultado> Firmar(EntradaFirmar entradaFirmar);
+        Task<string> ConsultarTxt();
     }
 }

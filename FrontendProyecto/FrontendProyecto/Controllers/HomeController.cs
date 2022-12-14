@@ -13,12 +13,24 @@ namespace FrontendProyecto.Controllers
 
         public HomeController(IServicio_Proxy servicioProxy)
         {
+
             _servicioProxy = servicioProxy;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            EntradaIndex entrada = new();
+            entrada.Dato = "";
+            try
+            {
+                entrada.Dato = await _servicioProxy.ConsultarTxt();
+                Console.WriteLine(entrada.Dato);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return View(entrada);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

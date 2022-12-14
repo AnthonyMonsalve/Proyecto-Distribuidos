@@ -154,6 +154,33 @@ namespace FrontendProyecto.Servicios
             return "ERROR";
         }
 
+        public async Task<string> ConsultarTxt()
+        {
+            HttpClient cliente = new()
+            {
+                BaseAddress = new Uri("http://localhost:5152")
+            };
+            try
+            {
+                var response = await cliente.GetAsync("ConsultaTxt/");
+                if (response.IsSuccessStatusCode)
+                {
+                    var respuesta = await response.Content.ReadAsStringAsync();
+                    return respuesta;
+                }
+            }
+            catch (HttpRequestException ex)
+            {
+                Console.WriteLine($"ERROR de conexión con la API: '{ex.Message}'");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
+            return null;
+        }
+
         public async Task<string> verificarIntegridad(EntradaIntegridad entrada)
         {
             //Desencriptando Mensaje llegada
@@ -220,5 +247,6 @@ namespace FrontendProyecto.Servicios
             return plaintext;
         }
 
+        
     }
 }

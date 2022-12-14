@@ -6,7 +6,6 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using SolucionServidorA.Data;
 using SolucionServidorA.Entities;
@@ -37,6 +36,11 @@ namespace SolucionServidorA.Controllers
 
             if (ModelState.IsValid)
             {
+                var user = _context.Usuarios.Where(x => x.nombre == nombre).FirstOrDefault();
+                if (user != null)
+                {
+                    return null;
+                }
                 var usuario = new Usuario();
                 usuario.Id = Guid.NewGuid();
                 usuario.nombre = nombre;
@@ -94,48 +98,6 @@ namespace SolucionServidorA.Controllers
             return firma;
         }
 
-        
-
-        [HttpPost]
-        [Route("Integridad/")]
-        public async Task<string> verificarIntegridad([FromBody] EntradaIntegridad entrada)
-        {
-            //Desencriptando Mensaje llegada
-            Aes aes = Aes.Create();
-            aes.Key = Encoding.UTF32.GetBytes(entrada.clave.ToString());
-            byte[] IV = Encoding.UTF8.GetBytes("ClaveSecreta1234");
-            aes.IV = IV;
-            byte[] hashDesencriptado = Convert.FromHexString(entrada.hashEncriptado);
-            string hashEntrante = DecryptStringFromBytes_Aes(hashDesencriptado, aes.Key, aes.IV);
-
-            //Hasheando Mensaje
-            var bytemensaje = Encoding.UTF32.GetBytes(entrada.mensaje);
-            var mySHA256 = SHA256.Create();
-            byte[] hashCalculado = mySHA256.ComputeHash(bytemensaje);
-            string hashCalculadostring = Convert.ToHexString(hashCalculado);
-
-            if (hashCalculadostring.Equals(hashEntrante))
-            {
-                return "Integro";
-            }
-            return "No Integro";
-        }
-
-       
-
-        [HttpPost]
-        [Route("Autenticar/")]
-        public async Task<string> Autenticar([FromBody] EntradaAutenticar entrada)
-        {
-            //verificar usuario
-            var user = _context.Usuarios.Where(x => x.nombre == entrada.nombreUsuario && x.clave == entrada.clave).FirstOrDefault();
-            if (user == null)
-            {
-                return "NO AUTORIZADO";
-            }
-            return "AUTORIZADO";
-        }
-
 
         static byte[] EncryptStringToBytes_Aes(string plaintext, byte[] Key, byte[] IV)
         {
@@ -177,91 +139,7 @@ namespace SolucionServidorA.Controllers
             return encrypted;
         }
 
-        static string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] Key, byte[] IV)
-        {
-            // Check arguments.
-            if (cipherText == null || cipherText.Length <= 0)
-                throw new ArgumentNullException("cipherText");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
-
-            // Declare the string used to hold
-            // the decrypted text.
-            string plaintext = null;
-
-            // Create an Aes object
-            // with the specified key and IV.
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Key;
-                aesAlg.IV = IV;
-
-                // Create a decryptor to perform the stream transform.
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-                // Create the streams used for decryption.
-                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
-                {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
-
-                            // Read the decrypted bytes from the decrypting stream
-                            // and place them in a string.
-                            plaintext = srDecrypt.ReadToEnd();
-                        }
-                    }
-                }
-            }
-
-            return plaintext;
-        }
-        /*
-        static string DecryptStringFromBytes_Aes(byte[] cipherText, byte[] Key, byte[] IV)
-        {
-            // Check arguments.
-            if (cipherText == null || cipherText.Length <= 0)
-                throw new ArgumentNullException("cipherText");
-            if (Key == null || Key.Length <= 0)
-                throw new ArgumentNullException("Key");
-            if (IV == null || IV.Length <= 0)
-                throw new ArgumentNullException("IV");
-
-            // Declare the string used to hold
-            // the decrypted text.
-            string plaintext = null;
-            
-            // Create an Aes object
-            // with the specified key and IV.
-            using (Aes aesAlg = Aes.Create())
-            {
-                aesAlg.Key = Key;
-                aesAlg.IV = IV;
-                //aesAlg.Padding = PaddingMode.PKCS7;
-                // Create a decryptor to perform the stream transform.
-                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-                // Create the streams used for decryption.
-                using (MemoryStream msDecrypt = new MemoryStream(cipherText))
-                {
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                        {
-
-                            // Read the decrypted bytes from the decrypting stream
-                            // and place them in a string.
-                            plaintext = srDecrypt.ReadToEnd();
-                        }
-                    }
-                }
-            }
-
-            return plaintext;
-        }*/
+        
 
     }
 }

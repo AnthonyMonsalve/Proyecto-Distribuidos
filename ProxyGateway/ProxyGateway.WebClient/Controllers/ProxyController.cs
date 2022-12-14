@@ -34,26 +34,6 @@ namespace ProxyGateway.WebClient.Controllers
         }
 
         [HttpPost]
-        [Route("Integridad/")]
-        public async Task<string> verificarIntegridad([FromBody] EntradaIntegridad entrada)
-        {
-            try
-            {
-                var request = await proxy.verificarIntegridad(entrada);
-                return request;
-            }
-            catch (Exception ex)
-            {
-                // Aquí se puede manejar la excepción de la forma que se desee
-                // Por ejemplo, registrando el error en un archivo de logs,
-                // mostrando un mensaje de error al usuario, etc.
-                return ": no se pudo verificar la Integridad";
-            }
-        }
-
-
-
-        [HttpPost]
         [Route("Autenticar/")]
         public async Task<string> Autenticar([FromBody] EntradaAutenticar entrada)
         {

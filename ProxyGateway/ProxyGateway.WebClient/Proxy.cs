@@ -34,7 +34,7 @@ namespace ProxyGateway.WebClient
         {
             var content = JsonConvert.SerializeObject(entrada);
             var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var Url = apiUrls.ServidorBUrl + "/Firmar";
+            var Url = apiUrls.ServidorAUrl + "/Firmar";
             var request = await httpClient.PostAsync(Url, httpContent);
             request.EnsureSuccessStatusCode();
 
@@ -47,23 +47,12 @@ namespace ProxyGateway.WebClient
         {
             var content = JsonConvert.SerializeObject(entrada);
             var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var Url = apiUrls.ServidorAUrl + "/Autenticar";
+            var Url = apiUrls.ServidorBUrl + "/Autenticar";
             var request = await httpClient.PostAsync(Url, httpContent);
             request.EnsureSuccessStatusCode();
 
             return await request.Content.ReadAsStringAsync();
 
-        }
-
-        public async Task<string> verificarIntegridad(EntradaIntegridad entrada)
-        {
-            var content = JsonConvert.SerializeObject(entrada);
-            var httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            var Url = apiUrls.ServidorBUrl + "/Integridad";
-            var request = await httpClient.PostAsync(Url, httpContent);
-            request.EnsureSuccessStatusCode();
-
-            return await request.Content.ReadAsStringAsync();
         }
 
         public async Task<Usuario> CrearUsuario(string nombre)

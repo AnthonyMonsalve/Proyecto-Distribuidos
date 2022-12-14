@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Configuration.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
 builder.Services.AddDbContext<UsuarioContext>(options =>
-options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionRemote")));
+options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
 

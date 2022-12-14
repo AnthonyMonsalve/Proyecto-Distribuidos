@@ -22,7 +22,7 @@ namespace SolucionServidorA.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("SolucionServidorB.Entities.Usuario", b =>
+            modelBuilder.Entity("SolucionServidorA.Entities.Usuario", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

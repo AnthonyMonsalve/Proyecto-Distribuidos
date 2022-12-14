@@ -133,7 +133,7 @@ namespace FrontendProyecto.Controllers
             try
             {
                 string respuesta = await _servicioProxy.Integridad(entradaIntegridad);
-                return RedirectToAction("Integridad", new { message = "Integridad", integro = respuesta });
+                return RedirectToAction("Integridad", new { message = "Integridad", Mensaje =entradaIntegridad.Mensaje, claveFirma = entradaIntegridad.Clave, firma=entradaIntegridad.HashEncriptado, integro = respuesta });
 
             }
             catch (Exception ex)
